@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { SiswaService } from './siswa.service';
 import { CreateSiswaDto } from './dto/create-siswa.dto';
 import { UpdateSiswaDto } from './dto/update-siswa.dto';
@@ -8,6 +8,7 @@ export class SiswaController {
   constructor(private readonly siswaService: SiswaService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe)
   create(@Body() createSiswaDto: CreateSiswaDto) {
     return this.siswaService.create(createSiswaDto);
   }
@@ -17,9 +18,9 @@ export class SiswaController {
     return this.siswaService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.siswaService.findOne(+id);
+  @Get(':nisn')
+  findOne(@Param('nisn') nisn: number) {
+    return this.siswaService.findOne(nisn);
   }
 
   @Patch(':id')

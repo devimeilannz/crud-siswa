@@ -4,16 +4,20 @@ import { UpdateSiswaDto } from './dto/update-siswa.dto';
 
 @Injectable()
 export class SiswaService {
+  private readonly siswa:CreateSiswaDto[]=[];
   create(createSiswaDto: CreateSiswaDto) {
+    this.siswa.push(createSiswaDto)
     return 'This action adds a new siswa';
   }
 
-  findAll() {
-    return `This action returns all siswa`;
+  findAll():CreateSiswaDto[] {
+    return this.siswa 
+    //return `This action returns all siswa`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} siswa`;
+  findOne(nisn: number){
+    return this.siswa.find((siswa)=> siswa.nisn ===nisn);
+   // return `This action returns a #${id} siswa`;
   }
 
   update(id: number, updateSiswaDto: UpdateSiswaDto) {
